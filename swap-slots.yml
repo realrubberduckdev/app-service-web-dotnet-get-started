@@ -1,6 +1,8 @@
 trigger:
 - master
 
+pool: server
+
 steps:
 - task: AzureAppServiceManage@0
   inputs:

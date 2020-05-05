@@ -1,0 +1,13 @@
+trigger:
+- master
+
+pool: server
+
+steps:
+- task: AzureAppServiceManage@0
+  inputs:
+    azureSubscription: 'Visual Studio Enterprise (77be59ef-9321-4911-8e68-dde3b63a9e67)'
+    Action: 'Swap Slots'
+    WebAppName: 'mywebapp428707634'
+    ResourceGroupName: 'web-deployment-test-rg'
+    SourceSlot: 'staging'

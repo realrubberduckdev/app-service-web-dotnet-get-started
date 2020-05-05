@@ -13,8 +13,12 @@ $location="UK South"
 # Connect to Azure subscription
 Connect-AzAccount
 
-# Create a resource group.
-New-AzResourceGroup -Name $resourceGroupName -Location $location
+Get-AzResourceGroup -Name $resourceGroupName -ErrorVariable notPresent -ErrorAction SilentlyContinue
+if ($notPresent)
+{
+    # Create a resource group.
+    New-AzResourceGroup -Name $resourceGroupName -Location $location
+}
 
 # Create an App Service plan in Free tier.
 New-AzAppServicePlan -Name $webappname -Location $location `

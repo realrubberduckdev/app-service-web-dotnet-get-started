@@ -33,6 +33,6 @@ stages:
               inputs:
                 azureSubscription: 'Visual Studio Enterprise (77be59ef-9321-4911-8e68-dde3b63a9e67)'
                 Action: 'Swap Slots'
-                WebAppName: 'mywebapp428707634'
+                WebAppName: 'webapp-github-deployment-with-slots-1439770693'
                 ResourceGroupName: 'web-deployment-test-rg'
                 SourceSlot: 'staging'

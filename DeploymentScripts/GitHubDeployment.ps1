@@ -28,7 +28,7 @@ New-AzAppServicePlan -Name $webappname -Location $location `
 New-AzWebApp -Name $webappname -Location $location `
 -AppServicePlan $webappname -ResourceGroupName $resourceGroupName
 
-# Configure GitHub deployment to the staging slot from your GitHub repo and deploy once.
+# Configure GitHub deployment to point at your GitHub repo and deploy once.
 $PropertiesObject = @{
     repoUrl = "$gitrepo";
     branch = "master";

@@ -21,7 +21,8 @@ stages:
   dependsOn: Build
   jobs:
   - deployment: deploy_to_production
-    pool: server
+    pool:
+      vmImage: 'windows-latest'
     environment: 'deploy_to_production'
     strategy:
       runOnce:

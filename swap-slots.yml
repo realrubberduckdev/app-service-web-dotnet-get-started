@@ -1,13 +1,37 @@
 trigger:
 - master
 
-pool: server
+pool:
+  vmImage: 'windows-latest'
 
-steps:
-- task: AzureAppServiceManage@0
-  inputs:
-    azureSubscription: 'Visual Studio Enterprise (77be59ef-9321-4911-8e68-dde3b63a9e67)'
-    Action: 'Swap Slots'
-    WebAppName: 'mywebapp428707634'
-    ResourceGroupName: 'web-deployment-test-rg'
-    SourceSlot: 'staging'
+variables:
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+
+stages:
+- stage: Build
+  jobs:
+  - job: Build
+    pool:
+      vmImage: 'windows-latest'
+    steps:
+    - script: echo "All build and test pass."
+- stage: deploy_to_production
+  dependsOn: Build
+  jobs:
+  - deployment: deploy_to_production
+    pool: server
+    environment: 'deploy_to_production'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+            - task: AzureAppServiceManage@0
+              displayName: AzureAppServiceManage - Swap slots
+              inputs:
+                azureSubscription: 'Visual Studio Enterprise (77be59ef-9321-4911-8e68-dde3b63a9e67)'
+                Action: 'Swap Slots'
+                WebAppName: 'mywebapp428707634'
+                ResourceGroupName: 'web-deployment-test-rg'
+                SourceSlot: 'staging'
